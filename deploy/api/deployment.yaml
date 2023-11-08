@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api
-  namespace: api
+  namespace: res-edge
   labels:
     app: api
 spec:
@@ -20,7 +20,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: app
-        image: ghcr.io/cse-labs/res-edge:0.12
+        image: ghcr.io/cse-labs/res-edge:0.14
         imagePullPolicy: Always
         ports:
           - name: http

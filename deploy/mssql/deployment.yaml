@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mssql
-  namespace: api
+  namespace: res-edge
   labels:
     app: mssql
 spec:
@@ -20,7 +20,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: mssql
-        image: ghcr.io/cse-labs/res-edge-sql:0.12
+        image: ghcr.io/cse-labs/res-edge-sql:0.14
         imagePullPolicy: Always
         ports:
         - containerPort: 1433
@@ -33,11 +33,11 @@ spec:
             memory: 2Gi
             cpu: 500m
 
-        # volumeMounts:
-        # - name: mssql
-        #   mountPath: /var/opt/mssql
+        volumeMounts:
+        - name: mssql
+          mountPath: /var/opt/mssql
 
-      # volumes:
-      # - name: mssql
-      #   persistentVolumeClaim:
-      #     claimName: mssql
+      volumes:
+      - name: mssql
+        persistentVolumeClaim:
+          claimName: mssql

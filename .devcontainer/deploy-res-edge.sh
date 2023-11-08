@@ -35,11 +35,11 @@ kubectl apply -k monitoring
 
 echo
 echo 'waiting for mssql pod to start'
-kubectl wait pod --all --for condition=ready -n api --timeout 60s
+kubectl wait pod --all --for condition=ready -n res-edge --timeout 60s
 
 echo
 echo 'waiting for database recovery'
-sleep 20
+sleep 30
 
 # load the data
 ds reload --force
@@ -51,7 +51,10 @@ echo
 echo 'waiting for api pod to start'
 
 # wait for pod to start
-kubectl wait pod --all --for condition=ready -n api --timeout 60s
+kubectl wait pod --all --for condition=ready -n res-edge --timeout 60s
+
+# deploy ui
+kubectl apply -k ui
 
 # deploy webv
 kubectl apply -k webv
@@ -60,4 +63,4 @@ echo
 echo "Waiting for pods to start"
 kubectl wait pod --all --for condition=ready -n logging --timeout 60s
 kubectl wait pod --all --for condition=ready -n monitoring --timeout 30s
-kubectl wait pod --all --for condition=ready -n api --timeout 60s
+kubectl wait pod --all --for condition=ready -n res-edge --timeout 60s
